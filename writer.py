@@ -36,13 +36,17 @@ Website content: {company_info.get('raw_text', '')}
 Write a short, personalised cold email from {SENDER_NAME} at Hourglass AI to this company.
 
 Rules:
-- 3-4 sentences max. No fluff.
-- Reference ONE specific thing you observed about their business (what they do, their industry, a pain point they likely have)
-- Connect it naturally to what Hourglass AI can do for them
-- End with a soft CTA: offer a 20-min call, no pressure
+- Proper greeting on its own line: "Hi [Company Name] team," or "Hi [First Name]," if you can infer a contact
+- 2-3 short paragraphs with a blank line between each
+- Paragraph 1: one specific observation about their business (pain point, industry, model)
+- Paragraph 2: how Hourglass AI directly addresses that — keep it concrete, one sentence
+- Paragraph 3: soft CTA — offer a 20-min call, no pressure
+- Professional sign-off: "Best," then a blank line, then the sender name, role, and email on separate lines
 - Tone: confident, direct, human. Not salesy or corporate.
-- Do NOT use placeholders like [Company Name] — infer the company name from the URL/title
+- Do NOT use placeholders like [Company Name] — infer it from the URL/title
 - Subject line included
+
+The body must use actual newlines (\\n) between sections, not run-on paragraphs.
 
 Return JSON with exactly these fields:
 {{
