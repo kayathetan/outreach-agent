@@ -36,15 +36,16 @@ Website content: {company_info.get('raw_text', '')}
 Write a short, personalised cold email from {SENDER_NAME} at Hourglass AI to this company.
 
 Rules:
-- Proper greeting on its own line: "Hi [Company Name] team," or "Hi [First Name]," if you can infer a contact
-- 2-3 short paragraphs with a blank line between each
-- Paragraph 1: one specific observation about their business (pain point, industry, model)
-- Paragraph 2: how Hourglass AI directly addresses that — keep it concrete, one sentence
-- Paragraph 3: soft CTA — offer a 20-min call, no pressure
-- Professional sign-off: "Best," then a blank line, then the sender name, role, and email on separate lines
-- Tone: confident, direct, human. Not salesy or corporate.
+- Proper greeting on its own line: "Hi [First Name]," if you can infer a contact, otherwise "Hi [Company Name] team,"
+- 3 short paragraphs with a blank line between each
+- Paragraph 1: strong, confident opening — a sharp observation about their business that shows you've done your homework. No generic compliments. Reference something specific: their model, their scale, their industry position, a likely operational pain point.
+- Paragraph 2: what Hourglass AI does for companies like them — use "we" not "I". One or two sentences, concrete and specific. Mention the 30-day guarantee and 5+ hours saved.
+- Paragraph 3: soft CTA — "We'd love to explore whether there's a fit. Would you be open to a brief call this week?" Keep it low pressure.
+- Professional sign-off: "Best regards," then a blank line, then sender name, role, and email on separate lines
+- Use "we" and "our" throughout — never "I"
+- Tone: high-end, polished, confident. Like a top-tier consulting firm reaching out. Not salesy, not casual, not corporate-robotic.
 - Do NOT use placeholders like [Company Name] — infer it from the URL/title
-- Subject line included
+- Subject line: sharp and specific, not generic. Reference the company or their industry.
 
 The body must use actual newlines (\\n) between sections, not run-on paragraphs.
 
@@ -63,12 +64,18 @@ Return JSON with exactly these fields:
 
     import json, re
     raw = response.choices[0].message.content
-    # Extract JSON even if wrapped in markdown code block
-    match = re.search(r"\{.*\}", raw, re.DOTALL)
-    if not match:
-        raise ValueError(f"Could not parse email JSON from Claude response:\n{raw}")
 
-    email = json.loads(match.group())
+    # Extract subject and body directly via regex to avoid JSON newline issues
+    subject_match = re.search(r'"subject"\s*:\s*"(.*?)"', raw, re.DOTALL)
+    body_match = re.search(r'"body"\s*:\s*"(.*?)"\s*\}', raw, re.DOTALL)
+
+    if not subject_match or not body_match:
+        raise ValueError(f"Could not parse email from response:\n{raw}")
+
+    email = {
+        "subject": subject_match.group(1),
+        "body": body_match.group(1).replace("\\n", "\n"),
+    }
     return {
         "subject": email["subject"],
         "body": email["body"],
