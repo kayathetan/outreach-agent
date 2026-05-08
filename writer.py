@@ -11,9 +11,9 @@ They build, they don't just advise. No new platforms required.
 Target customers: professional services, SaaS, retail, manufacturing, healthcare.
 """
 
-SENDER_NAME = "Alex"
-SENDER_ROLE = "Growth, Hourglass AI"
-SENDER_EMAIL_SIGNATURE = "alex@thehourglass.ai"
+SENDER_NAME = "The Hourglass AI Team"
+SENDER_ROLE = ""
+SENDER_EMAIL_SIGNATURE = "hello@thehourglass.ai"
 
 
 def write_outreach_email(company_info: dict) -> dict:
@@ -41,7 +41,7 @@ Rules:
 - Paragraph 1: strong, confident opening — a sharp observation about their business that shows you've done your homework. No generic compliments. Reference something specific: their model, their scale, their industry position, a likely operational pain point.
 - Paragraph 2: what Hourglass AI does for companies like them — use "we" not "I". One or two sentences, concrete and specific. Mention the 30-day guarantee and 5+ hours saved.
 - Paragraph 3: soft CTA — "We'd love to explore whether there's a fit. Would you be open to a brief call this week?" Keep it low pressure.
-- Professional sign-off: "Best regards," then a blank line, then sender name, role, and email on separate lines
+- Professional sign-off: "Best regards," then a blank line, then "The Hourglass AI Team" and "hello@thehourglass.ai" on separate lines — no individual name
 - Use "we" and "our" throughout — never "I"
 - Tone: high-end, polished, confident. Like a top-tier consulting firm reaching out. Not salesy, not casual, not corporate-robotic.
 - Do NOT use placeholders like [Company Name] — infer it from the URL/title
